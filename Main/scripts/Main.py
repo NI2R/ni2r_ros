@@ -30,7 +30,7 @@ class Point:
 
 class Tools:
     def __init__(self):
-        self.nPoint = 1
+        self.nPoint = 3
         self.nbActual_Point = 0
         self.dPointdictionnary = {}
         self.log = logging
@@ -106,7 +106,7 @@ class Tools:
         rospy.Subscriber('StateTirette', Bool, self.Subscrib_State_Tirette) # 1 = Absente, 0 = Presente
         self.log.debug("la valeur %s, a ete recuperee du topic %s", str(self.bStateTirette), 'StateTirette')
         rospy.Subscriber('/odrivePosition_atteinte', Bool, self.Subscrib_Position_Atteinte)  # 1 = Atteinte, 0 = en cours
-        self.log.debug("la valeur %s, a ete recuperee du topic %s", str(self.bPosition_Atteinte), 'StateTirette')
+        self.log.debug("la valeur %s, a ete recuperee du topic %s", str(self.bPosition_Atteinte), 'odrivePosition_atteinte')
 
     def Subscrib_Arduino_State(self, data):
         self.Arduino_State = data.data
@@ -134,9 +134,9 @@ class Tools:
 
     def Road_Creation(self):
         self.dPointdictionnary["Point0"] = Point("Point0", 1, 1, 1)
-        self.dPointdictionnary["Point1"] = Point("Homologation", 545 + 130, 0, 0)
-        self.dPointdictionnary["Point2"] = Point("Point2", 3, 3, 3)
-        self.dPointdictionnary["Point3"] = Point("Point3", 0, 0, 0)
+        self.dPointdictionnary["Point1"] = Point("Homologation", 1000, 0, 0)
+        self.dPointdictionnary["Point2"] = Point("Point2", 500, 0, 0)
+        self.dPointdictionnary["Point3"] = Point("Point3", 500, 0, 180)
         self.dPointdictionnary["Point4"] = Point("Point4", 0, 0, 0)
         self.dPointdictionnary["Point5"] = Point("Point5", 0, 0, 0)
         self.dPointdictionnary["Point6"] = Point("Point6", 0, 0, 0)
