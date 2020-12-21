@@ -1,0 +1,27 @@
+<!--
+Copyright (c) 2020, NI2R.
+-->
+<launch>
+    <node pkg="rosserial_python" type="serial_node.py" name="serial_nodeACM0">
+        <param name="port" value="/dev/ttyACM0" />
+        <param name="baud" value="57600" />
+	</node>
+    <node pkg="rosserial_python" type="serial_node.py" name="serial_nodeACM1">
+        <param name="port" value="/dev/ttyACM1" />
+        <param name="baud" value="57600" />
+	</node>
+    <node pkg="rosserial_python" type="serial_node.py" name="serial_nodeACM2">
+        <param name="port" value="/dev/ttyACM2" />
+        <param name="baud" value="57600" />
+	</node>
+    <node pkg="rosserial_python" type="serial_node.py" name="serial_nodeUSB1">
+        <param name="port" value="/dev/ttyUSB1" />
+        <param name="baud" value="57600" />
+	</node>
+
+    <include file="$(find Deplacement)/launch/Deplacement.launch" />
+    <node name="Odrive" pkg="odrv_ros" type="interfaceROS.py" output="screen" />
+
+    <node name="Main" pkg="Main" type="Main.py" output="screen" />
+
+</launch>

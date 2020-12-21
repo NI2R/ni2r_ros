@@ -1,0 +1,8 @@
+<!--
+Copyright (c) 2020, NI2R.
+-->
+<launch>
+    <node name="Deplacement" pkg="Deplacement" type="Trajectory.py" output="screen" />
+
+
+</launch>
