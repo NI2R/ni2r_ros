@@ -1,0 +1,22 @@
+<!--
+Copyright (c) 2020, NI2R.
+-->
+<launch>
+<!-- launch test goblet -->
+   <!--<include file="$(find vision_globlet)/launch/test_interface.launch" >
+   </include>-->
+
+	<node pkg="rosserial_python" type="serial_node.py" name="serial_nodesensor_0">
+    <param name="port" value="/dev/sensor_0" />
+    <param name="baud" value="57600" />
+	</node>
+
+	<node pkg="rosserial_python" type="serial_node.py" name="serial_nodesensor_1">
+    <param name="port" value="/dev/sensor_1" />
+    <param name="baud" value="57600" />
+	</node>
+
+	<node name="caca" pkg="ni2r_ros" type="DriverOdriveROS.py" output="screen" />
+	<!--<node name="serialNode" pkg="rosserial_python" type="serial_node.py" output="screen" />-->
+ 
+</launch>
