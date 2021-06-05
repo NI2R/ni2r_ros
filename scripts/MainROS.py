@@ -5,7 +5,7 @@ import rospy
 
 from time import sleep, time
 
-from std_msgs.msg import Bool
+from std_msgs.msg import Bool, Int16
 
 class Robot_properties:
 	def __init__(self):
@@ -19,7 +19,7 @@ class Robot_properties:
 		self.pub_arduino = '/arduinoState'
 
 		self.pub_stop_timer_topic = rospy.Publisher(self.pub_stop_timer, Bool, queue_size=1)
-		self.pub_arduino_topic = rospy.Publisher(self.pub_arduino, Bool, queue_size=1)
+		self.pub_arduino_topic = rospy.Publisher(self.pub_arduino, Int16, queue_size=1)
 
 	def UpdateStart(self, data):
 		self.start = data.data
