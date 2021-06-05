@@ -12,7 +12,7 @@ class Robot_properties:
 	def __init__(self):
 		self.start = False
 
-		rospy.Subscriber("statetirette", Bool, self.UpdateStart)
+		rospy.Subscriber("StateTirette", Bool, self.UpdateStart)
 
 	def UpdateStart(self, data):
 		self.start = data.data
