@@ -16,16 +16,15 @@ class Odrive:
 	def __init__(self,odrv0, wheel_diameter, robot_diameter):
 		self.motor0 = odrv0.axis0
 		self.motor1 = odrv0.axis1
-	self.Diameter = wheel_diameter
-	self.entre_axe = robot_diameter
-	self.consigne = 0
+		self.Diameter = wheel_diameter
+		self.entre_axe = robot_diameter
+		self.consigne = 0
 
 	def Setup(self):
 		trap_traj_vel_max = 0.75  # Vitesse maximale consigne
 		trap_traj_accel = 5  # Rampe acceleration 10
 		trap_traj_decel = 5  # Rampe deceleration 10
 		trap_traj_inertia = 0  # A determiner
-	
 		print("========== Calibration **BIIIIP** =========")
 		self.motor0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
 		self.motor1.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
@@ -33,7 +32,7 @@ class Odrive:
 			sleep(0.1)
 
 		print("========== Configuration Odrive =========")
-	loop_control = AXIS_STATE_CLOSED_LOOP_CONTROL # Maintient en position les roues
+		loop_control = AXIS_STATE_CLOSED_LOOP_CONTROL # Maintient en position les roues
 		self.motor0.requested_state = loop_control
 		self.motor1.requested_state = loop_control
 		sleep(1)
@@ -68,52 +67,52 @@ class Odrive:
 		print("========== SETUP done =========")
 
 	def Length_to_rounds(self, length):
-	"""Convertie un distance (en mm) a parcourir en nombre de tours de roue"""
+		"""Convertie un distance (en mm) a parcourir en nombre de tours de roue"""
 		nb_rounds = length / (self.Diameter * math.pi)
 		#print("nb_rounds = ", nb_rounds)
 		return(nb_rounds)
 
 	def angle_to_rounds(self, angle):
-	"""Convertie un angle (en degres) a parcourir en nombre de tours de roue"""
-	nb_rounds = (angle * self.entre_axe) / (360 * self.Diameter)
-	#print("nb_rounds = ", nb_rounds)
-	return(nb_rounds)
+		"""Convertie un angle (en degres) a parcourir en nombre de tours de roue"""
+		nb_rounds = (angle * self.entre_axe) / (360 * self.Diameter)
+		#print("nb_rounds = ", nb_rounds)
+		return(nb_rounds)
 
 	def check_need_to_break(self):
-	"""Anything that could trigger the break (sharp, ros)"""
-	return False
+		"""Anything that could trigger the break (sharp, ros)"""
+		return False
 
 	def check_arrived(self):
-	"""Anything that could trigger the break (sharp, ros)"""
+		"""Anything that could trigger the break (sharp, ros)"""
 # TODO: Use position difference instead of null velocity
-	return self.motor0.encoder.vel_estimate == 0 and self.motor1.encoder.vel_estimate == 0	
+		return self.motor0.encoder.vel_estimate == 0 and self.motor1.encoder.vel_estimate == 0	
 
 	def wait_end_move(self):
-	"""Wait the move (translation or rotation) to be executed"""
-	sleep(0.5)
+		"""Wait the move (translation or rotation) to be executed"""
+		sleep(0.5)
 		while not(self.check_arrived()):
-		if(self.check_need_to_break()):
-		self.Freinage()
+			if(self.check_need_to_break()):
+				self.Freinage()
 		print
-			sleep(0.1)
+		sleep(0.1)
 
 	def Translation(self,distance):
 		''' Deplacement en mm (relatif)'''
 		print("Position de depart\nPosition moteur0 = %.2f\nPosition moteur1 = %.2f" % (self.motor0.encoder.pos_estimate,self.motor1.encoder.pos_estimate)) # TODO: To fix
 
-	self.consigne = self.Length_to_rounds(distance)
+		self.consigne = self.Length_to_rounds(distance)
 		self.motor0.controller.move_incremental(-1.0 * self.consigne, False) # False pour relatif
 		self.motor1.controller.move_incremental(1.0 * self.consigne, False) # False pour relatif
-	self.wait_end_move()
+		self.wait_end_move()
 
 	def Rotation(self,angle):
 		''' Rotation en degres de roue parcourue (trigonometrique)'''
 		print("Position de depart\nPosition moteur0 = %.2f\nPosition moteur1 = %.2f" % (self.motor0.encoder.pos_estimate,self.motor1.encoder.pos_estimate)) # TODO: To fix
 
-	self.consigne = self.angle_to_rounds(angle)
+		self.consigne = self.angle_to_rounds(angle)
 		self.motor0.controller.move_incremental(-1.0 * self.consigne, False) # False pour relatif
 		self.motor1.controller.move_incremental(-1.0 * self.consigne, False) # False pour relatif
-	self.wait_end_move()
+		self.wait_end_move()
 
 	def Freinage(self):
 		print("========== Freinage!!! =========")
