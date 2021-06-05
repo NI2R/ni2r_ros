@@ -17,7 +17,7 @@ Copyright (c) 2020, NI2R.
 	</node>
 
 	<node name="caca" pkg="ni2r_ros" type="DriverOdriveROS.py" output="screen" />
-	<node name="timer" pkg="ni2r_ros" type="Main.py" output="screen" />
+	<node name="timer" pkg="ni2r_ros" type="MainROS.py" output="screen" />
 	<!--<node name="serialNode" pkg="rosserial_python" type="serial_node.py" output="screen" />-->
  
 </launch>
