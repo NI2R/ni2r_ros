@@ -79,6 +79,12 @@ class Odrive:
 		#print("nb_rounds = ", nb_rounds)
 		return(nb_rounds)
 
+	def Rounds_To_Length(self, rounds):
+		"""Convertie un nombre de tours de roue a parcourir en une distance (en mm)"""
+		length = rounds * (self.Diameter * math.pi)
+		#print("nb_rounds = ", nb_rounds)
+		return(length)
+
 	def angle_to_rounds(self, angle):
 		"""Convertie un angle (en degres) a parcourir en nombre de tours de roue"""
 		nb_rounds = (angle * self.entre_axe) / (360 * self.Diameter)
@@ -90,7 +96,7 @@ class Odrive:
 		result = False
 
 		result = result or self.robot.stop_timer
-		result = result or self.sharp.isCollide(700) # ~150mm
+		result = result or self.sharp.isCollide(550) # ~150mm
 
 		return result
 
@@ -101,7 +107,7 @@ class Odrive:
 
 	def wait_end_move(self):
 		"""Wait the move (translation or rotation) to be executed"""
-		sleep(0.5)
+		sleep(0.2) # FIX - Delay to let motors start (no null velocity)
 		while not(self.check_arrived()):
 			if(self.check_need_to_break()):
 				self.Freinage()

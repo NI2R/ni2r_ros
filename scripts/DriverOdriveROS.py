@@ -32,13 +32,31 @@ def main():
 	print("========== Start homologation 2021 =========")
 	Moteurs.Setup()
 
-	dist = 1000000
 	while(not(robot.start)):
 		sleep(0.1)
 		# rospy.sleep(1)
 
 	print("========== TRANSLATION =========")
-	Moteurs.Translation(dist)
+	while(True):
+		initial_dist = 1000
+		while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) > 10):
+			if(not(Moteurs.check_need_to_break())):
+				dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
+				print(dist)
+				Moteurs.Translation(dist)
+			else:
+				sleep(0.2)
+
+		consigne = -1000
+		initial_pos = Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
+		while((consigne - (Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) - initial_pos)) < -10):
+			if(not(Moteurs.check_need_to_break())):
+				dist = consigne - (Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) - initial_pos)
+				print(dist)
+				Moteurs.Translation(dist)
+			else:
+				sleep(0.2)
+	
 
 	# print("========== Fin de homologation 2021 =========")
 

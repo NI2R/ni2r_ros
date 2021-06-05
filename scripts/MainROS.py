@@ -11,7 +11,7 @@ class Robot_properties:
 	def __init__(self):
 		self.start = False
 		self.timer_start = 0
-		self.match_duration = 6000 # in seconds
+		self.match_duration = 90 # in seconds
 
 		rospy.Subscriber("StateTirette", Bool, self.UpdateStart)
 
