@@ -13,11 +13,11 @@ from odrive.enums import *
 # Si ca vient du coefficient de velocity dans la close loop de la Odrive (reglable)
 
 class Odrive:
-	def __init__(self,odrv0, wheel_diameter, robot_diameter):
+	def __init__(self,odrv0):
 		self.motor0 = odrv0.axis0
 		self.motor1 = odrv0.axis1
-		self.Diameter = wheel_diameter
-		self.entre_axe = robot_diameter
+		self.Diameter = 80 #mm
+		self.entre_axe = 275.0 #mm
 		self.consigne = 0
 
 
@@ -139,10 +139,8 @@ class Odrive:
 			sleep(1)
 
 def main():
-	wheel_diameter = 80 #mm
-	robot_entreaxe = 275.0 #mm
 	odrv0 = odrive.find_any()
-	Moteurs = Odrive(odrv0, wheel_diameter, robot_entreaxe)
+	Moteurs = Odrive(odrv0)
 	print("========== Start homologation 2021 =========")
 	Moteurs.Setup()
 
