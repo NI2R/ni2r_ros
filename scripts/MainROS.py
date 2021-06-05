@@ -30,8 +30,10 @@ class Robot_properties:
 		self.pub_stop_timer_topic.publish(result)
 		
 		if(result.data):
+			arduino_command = Int16()
 			arduino_command_raise_flag = 15
-			self.pub_arduino_topic.publish(arduino_command_raise_flag)
+			arduino_command.data = arduino_command_raise_flag
+			self.pub_arduino_topic.publish(arduino_command)
 
 		return result.data
 
