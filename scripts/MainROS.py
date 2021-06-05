@@ -24,7 +24,7 @@ class Robot_properties:
 
 	def isStopTimer(self):
 		result = Bool()
-		result.data = time.time() - self.timer_start > self.match_duration
+		result.data = time() - self.timer_start > self.match_duration
 		self.pub_stop_timer_topic.publish(result)
 		return result.data
 
@@ -35,7 +35,7 @@ def main():
 	while(not(robot.start)):
 		sleep(0.1)
 		# rospy.sleep(1)
-	robot.timer_start = time.time()
+	robot.timer_start = time()
 
 	while(not(robot.isStopTimer())):
 		sleep(0.1)
