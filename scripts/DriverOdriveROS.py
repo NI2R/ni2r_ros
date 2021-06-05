@@ -11,7 +11,7 @@ from std_msgs.msg import Float32, Bool
 class Robot_properties:
 	def __init__(self):
 		self.start = False
-		self.stop = False
+		self.stop_timer = False
 
 		rospy.Subscriber("StateTirette", Bool, self.UpdateStart)
 		rospy.Subscriber("stop_timer", Bool, self.UpdateStop)
@@ -20,7 +20,7 @@ class Robot_properties:
 		self.start = data.data
 
 	def UpdateStop(self, data):
-		self.stop = data.data
+		self.stop_timer = data.data
 
 
 def main():
