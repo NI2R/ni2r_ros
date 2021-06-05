@@ -32,7 +32,7 @@ def main():
 	print("========== Start homologation 2021 =========")
 	Moteurs.Setup()
 
-	dist = 1000
+	dist = 1000000
 	while(not(robot.start)):
 		sleep(0.1)
 		# rospy.sleep(1)
