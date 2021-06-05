@@ -1,0 +1,12 @@
+<!--
+Copyright (c) 2020, NI2R.
+-->
+<launch>
+<!-- launch test goblet -->
+   <!--<include file="$(find vision_globlet)/launch/test_interface.launch" >
+   </include>-->
+
+	<node name="caca" pkg="ni2r_ros" type="DriverOdriveROS.py" output="screen" />
+	<!--<node name="serialNode" pkg="rosserial_python" type="serial_node.py" output="screen" />-->
+ 
+</launch>
