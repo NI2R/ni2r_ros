@@ -16,8 +16,10 @@ class Robot_properties:
 		rospy.Subscriber("StateTirette", Bool, self.UpdateStart)
 
 		self.pub_stop_timer = '/stop_timer'
+		self.pub_arduino = '/arduinoState'
 
 		self.pub_stop_timer_topic = rospy.Publisher(self.pub_stop_timer, Bool, queue_size=1)
+		self.pub_arduino_topic = rospy.Publisher(self.pub_arduino, Bool, queue_size=1)
 
 	def UpdateStart(self, data):
 		self.start = data.data
@@ -26,6 +28,11 @@ class Robot_properties:
 		result = Bool()
 		result.data = time() - self.timer_start > self.match_duration
 		self.pub_stop_timer_topic.publish(result)
+		
+		if(result.data):
+			arduino_command_raise_flag = 15
+			self.pub_arduino_topic.publish(arduino_command_raise_flag)
+
 		return result.data
 
 def main():
