@@ -23,8 +23,8 @@ def main():
 
 	wheel_diameter = 80 #mm
 	robot_entreaxe = 275.0 #mm
-	odrv0 = odrive.find_any()
-	Moteurs = Odrive(odrv0, wheel_diameter, robot_entreaxe)
+	odrv0 = DriverOdrive.odrive.find_any()
+	Moteurs = DriverOdrive.Odrive(odrv0, wheel_diameter, robot_entreaxe)
 	print("========== Start homologation 2021 =========")
 	Moteurs.Setup()
 
