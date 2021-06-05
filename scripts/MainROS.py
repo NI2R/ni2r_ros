@@ -40,6 +40,7 @@ def main():
 	while(not(robot.isStopTimer())):
 		sleep(0.1)
 
+	print(time() - robot.timer_start)
 	print("========== Fin de homologation 2021 =========")
 
 if __name__ == '__main__':

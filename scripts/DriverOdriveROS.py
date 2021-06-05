@@ -29,14 +29,15 @@ def main():
 	print("========== Start homologation 2021 =========")
 	Moteurs.Setup()
 
-	print("========== TRANSLATION =========")
 	dist = 1000
 	while(not(robot.start)):
 		sleep(0.1)
 		# rospy.sleep(1)
+
+	print("========== TRANSLATION =========")
 	Moteurs.Translation(dist)
 
-	print("========== Fin de homologation 2021 =========")
+	# print("========== Fin de homologation 2021 =========")
 
 if __name__ == '__main__':
 	try:
