@@ -16,7 +16,7 @@ class Robot_properties:
 		rospy.Subscriber("StateTirette", Bool, self.UpdateStart)
 
 		self.pub_stop_timer = '/stop_timer'
-		self.pub_arduino = '/arduinoState'
+		self.pub_arduino = '/arduinoOrder'
 
 		self.pub_stop_timer_topic = rospy.Publisher(self.pub_stop_timer, Bool, queue_size=1)
 		self.pub_arduino_topic = rospy.Publisher(self.pub_arduino, Int16, queue_size=1)
