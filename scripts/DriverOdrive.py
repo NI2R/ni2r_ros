@@ -5,6 +5,7 @@ from __future__ import print_function
 
 from time import sleep
 import math
+from MCP3008 import MCP8008
 
 import odrive
 from odrive.enums import *
@@ -15,12 +16,13 @@ from odrive.enums import *
 class Odrive:
 	def __init__(self, robot, odrv0):
 		self.robot = robot
+		self.sharp = MCP8008()
+
 		self.motor0 = odrv0.axis0
 		self.motor1 = odrv0.axis1
 		self.Diameter = 80 #mm
 		self.entre_axe = 275.0 #mm
 		self.consigne = 0
-
 
 	def Setup(self):
 		trap_traj_vel_max = 0.75  # Vitesse maximale consigne
@@ -87,8 +89,8 @@ class Odrive:
 		"""Anything that could trigger the break (sharp, ros)"""
 		result = False
 
-		if(self.robot.stop_timer == True):
-			result = True
+		result = result or self.robot.stop_timer
+		result = result or self.sharp.isCollide(700) # ~150mm
 
 		return result
 
