@@ -39,7 +39,10 @@ class MCP3008:
 
 		self.updateValues()
 
-		for sensor_id in self.n_sensors:
+		# for sensor in self.sensor_value:
+		# 	result = result or (sensor > threshold_value)
+
+		for sensor_id in range(self.n_sensors):
 			result = result or (self.sensor_value[sensor_id] > threshold_value)
 			if(self.sensor_value[sensor_id] > threshold_value):
 				print("Sensor %d is triggered" % sensor_id)
