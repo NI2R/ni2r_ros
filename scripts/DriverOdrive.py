@@ -5,7 +5,7 @@ from __future__ import print_function
 
 from time import sleep
 import math
-from MCP3008 import MCP8008
+from MCP3008 import MCP3008
 
 import odrive
 from odrive.enums import *
@@ -16,7 +16,7 @@ from odrive.enums import *
 class Odrive:
 	def __init__(self, robot, odrv0):
 		self.robot = robot
-		self.sharp = MCP8008()
+		self.sharp = MCP3008()
 
 		self.motor0 = odrv0.axis0
 		self.motor1 = odrv0.axis1
