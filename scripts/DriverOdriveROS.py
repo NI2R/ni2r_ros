@@ -20,6 +20,7 @@ class Robot_properties:
 
 def main():
 	rospy.init_node('DriverOdrive', anonymous=True)
+	robot = Robot_properties()
 
 	wheel_diameter = 80 #mm
 	robot_entreaxe = 275.0 #mm
@@ -30,7 +31,7 @@ def main():
 
 	print("========== TRANSLATION =========")
 	dist = 1000
-	while(not(self.start)):
+	while(not(robot.start)):
 		sleep(0.1)
 		# rospy.sleep(1)
 	Moteurs.Translation(dist)
