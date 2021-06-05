@@ -93,8 +93,8 @@ class Odrive:
 		while not(self.check_arrived()):
 			if(self.check_need_to_break()):
 				self.Freinage()
-		print
-		sleep(0.1)
+			#print
+			sleep(0.1)
 
 	def Translation(self,distance):
 		''' Deplacement en mm (relatif)'''
