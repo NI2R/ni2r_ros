@@ -13,7 +13,8 @@ from odrive.enums import *
 # Si ca vient du coefficient de velocity dans la close loop de la Odrive (reglable)
 
 class Odrive:
-	def __init__(self,odrv0):
+	def __init__(self, robot, odrv0):
+		self.robot = robot
 		self.motor0 = odrv0.axis0
 		self.motor1 = odrv0.axis1
 		self.Diameter = 80 #mm
@@ -84,7 +85,12 @@ class Odrive:
 
 	def check_need_to_break(self):
 		"""Anything that could trigger the break (sharp, ros)"""
-		return False
+		result = False
+
+		if(self.robot.stop_timer == True):
+			result = True
+
+		return result
 
 	def check_arrived(self):
 		"""Anything that could trigger the break (sharp, ros)"""

@@ -28,7 +28,7 @@ def main():
 	robot = Robot_properties()
 
 	odrv0 = DriverOdrive.odrive.find_any()
-	Moteurs = DriverOdrive.Odrive(odrv0)
+	Moteurs = DriverOdrive.Odrive(robot, odrv0)
 	print("========== Start homologation 2021 =========")
 	Moteurs.Setup()
 
