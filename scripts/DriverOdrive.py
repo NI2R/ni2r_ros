@@ -204,8 +204,11 @@ class Odrive:
 			sleep(1)
 
 def main():
+	dummy_robot = lambda: None
+	dummy_robot.stop_timer = False
+
 	odrv0 = odrive.find_any()
-	Moteurs = Odrive(odrv0)
+	Moteurs = Odrive(dummy_robot, odrv0)
 	print("========== Start homologation 2021 =========")
 	Moteurs.Setup()
 
