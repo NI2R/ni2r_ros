@@ -10,7 +10,7 @@ class Aruco:
         self.fiducial_array = FiducialArray()
         rospy.Subscriber("fiducial_vertices", FiducialArray, self.getFiducialArray)
         self.pub_fiducial_array_topic = rospy.Publisher('NordSud_topic', Bool, queue_size=1) #topicname + type of topic + nb in queue
-    
+
     def getFiducialArray(self,data):
         self.fiducial_array = data  
         
