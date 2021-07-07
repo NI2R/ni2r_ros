@@ -23,7 +23,7 @@ class Odrive:
 		self.Diameter = 80 #mm
 		self.entre_axe = 275.0 #mm
 		self.consigne = 0
-		self.sharp_distance_detection = 300
+		self.sharp_distance_detection = 500
 
 	def Setup(self):
 		trap_traj_vel_max = 0.50  # Vitesse maximale consigne
@@ -96,7 +96,7 @@ class Odrive:
 		result = False
 
 		result = result or self.robot.stop_timer
-		result = result or self.sharp.isCollide(self.sharp_distance_detection) # 700: 150mm
+		# result = result or self.sharp.isCollide(self.sharp_distance_detection) # 700: 150mm
 
 		return result
 

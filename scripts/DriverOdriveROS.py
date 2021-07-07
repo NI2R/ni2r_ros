@@ -36,7 +36,7 @@ def main():
 		# rospy.sleep(1)
 
 	print("========== TRANSLATION =========")
-	initial_dist = 1000
+	initial_dist = 510
 	while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) > 10):
 		if(not(Moteurs.check_need_to_break())):
 			dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
