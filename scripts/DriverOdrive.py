@@ -91,6 +91,11 @@ class Odrive:
 		#print("nb_rounds = ", nb_rounds)
 		return(nb_rounds)
 
+	def Rounds_To_Angle(self, rounds):
+		"""Convertie un nombre de tours de roue a parcourir en un angle (en degres)"""
+		angle = (rounds * 360 * self.Diameter) / self.entre_axe
+		return(angle)
+
 	def check_need_to_break(self):
 		"""Anything that could trigger the break (sharp, ros)"""
 		result = False

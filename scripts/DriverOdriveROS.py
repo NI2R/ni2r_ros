@@ -34,16 +34,30 @@ def main():
 	while(not(robot.start)):
 		sleep(0.1)
 		# rospy.sleep(1)
+	
+	current_translation = lambda: Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
+	current_rotation = lambda: Moteurs.Rounds_To_Angle(Moteurs.motor1.encoder.pos_estimate)
 
-	print("========== TRANSLATION =========")
-	initial_dist = 1000
-	while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) > 10):
-		if(not(Moteurs.check_need_to_break())):
-			dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
-			print(dist)
-			Moteurs.Translation(dist)
-		else:
-			sleep(0.2)
+	while(True):
+		print("========== TRANSLATION =========")
+		goal_translation = 1000 + current_translation() # 1m + initial current position
+		while(goal_translation - current_translation() > 10):
+			if(not(Moteurs.check_need_to_break())):
+				remaining_translation = goal_translation - current_translation()
+				print("Remaining translation = ", remaining_translation)
+				Moteurs.Translation(remaining_translation)
+			else:
+				sleep(0.2)
+
+		print("========== ROTATION =========")
+		goal_rotation = 180 + current_rotation() # 180 degrees + initial current position
+		while((goal_rotation - current_rotation()) > 1.8):
+			if(not(Moteurs.check_need_to_break())):
+				remaining_rotation = goal_rotation - current_rotation()
+				print("Remaining rotation = ", remaining_rotation)
+				Moteurs.Rotation(remaining_rotation)
+			else:
+				sleep(0.2)
 	print("========== Fin de homologation 2021 =========")
 
 if __name__ == '__main__':
