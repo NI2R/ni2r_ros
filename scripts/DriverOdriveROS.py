@@ -12,9 +12,11 @@ class Robot_properties:
 	def __init__(self):
 		self.start = False
 		self.stop_timer = False
+		self.Initialisation = False
 
 		rospy.Subscriber("StateTirette", Bool, self.UpdateStart)
 		rospy.Subscriber("stop_timer", Bool, self.UpdateStop)
+		rospy.Subscriber("StateClef", Bool, self.UpdateKey)
 
 	def UpdateStart(self, data):
 		self.start = data.data
@@ -22,9 +24,16 @@ class Robot_properties:
 	def UpdateStop(self, data):
 		self.stop_timer = data.data
 
+	def UpdateKey(self, data):
+		self.Initialisation = data.data
+
 def main():
+
 	rospy.init_node('DriverOdrive', anonymous=True)
 	robot = Robot_properties()
+
+	while(not(robot.Initialisation)):
+		sleep(0.1)
 
 	odrv0 = DriverOdrive.odrive.find_any()
 	Moteurs = DriverOdrive.Odrive(robot, odrv0)
