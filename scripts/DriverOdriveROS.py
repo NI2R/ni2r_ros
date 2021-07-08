@@ -45,14 +45,12 @@ def main():
 		# rospy.sleep(1)
 
 	print("========== TRANSLATION =========")
-	initial_dist = 567
-	while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) > 10):
-		if(not(Moteurs.check_need_to_break())):
-			dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
-			print(dist)
-			Moteurs.Translation(dist)
-		else:
-			sleep(0.2)
+	Moteurs.Translation_with_breaking(-500)
+	
+	print("========== ROTATION =========")
+	Moteurs.Rotation_with_breaking(-90)
+	sleep(2)
+	Moteurs.Rotation_with_breaking(135)
 
 	print("========== Fin de homologation 2021 =========")
 

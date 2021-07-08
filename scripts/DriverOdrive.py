@@ -91,6 +91,11 @@ class Odrive:
 		#print("nb_rounds = ", nb_rounds)
 		return(nb_rounds)
 
+	def Rounds_To_Angle(self, rounds):
+		"""Convertie un nombre de tours de roue a parcourir en un angle (en degres)"""
+		angle = (rounds * 360 * self.Diameter) / self.entre_axe
+		return(angle)
+
 	def check_need_to_break(self):
 		"""Anything that could trigger the break (sharp, ros)"""
 		result = False
@@ -125,6 +130,19 @@ class Odrive:
 		self.motor1.controller.move_incremental(1.0 * self.consigne, False) # False pour relatif
 		self.wait_end_move()
 
+	def get_current_position_for_translation(self):
+		return self.Rounds_To_Length(self.motor1.encoder.pos_estimate)
+
+	def Translation_with_breaking(self, distance_goal):
+		goal_translation = distance_goal + self.get_current_position_for_translation() # distance goal + initial current position
+
+		while(abs(goal_translation - self.get_current_position_for_translation()) > 10):
+			if(not(self.check_need_to_break())):
+				remaining_translation = goal_translation - self.get_current_position_for_translation()
+				print("Remaining translation = ", remaining_translation)
+				self.Translation(remaining_translation)
+			else:
+				sleep(0.2)
 
 	def Rotation(self,angle):
 		''' Rotation en degres de roue parcourue (trigonometrique)'''
@@ -134,6 +152,19 @@ class Odrive:
 		self.motor1.controller.move_incremental(-1.0 * self.consigne, False) # False pour relatif
 		self.wait_end_move()
 
+	def get_current_position_for_rotation(self):
+		return self.Rounds_To_Angle(-self.motor0.encoder.pos_estimate)
+
+	def Rotation_with_breaking(self, angular_goal):
+		goal_rotation = angular_goal + self.get_current_position_for_rotation() # angular goal + initial current position
+
+		while(abs(goal_rotation - self.get_current_position_for_rotation()) > 10):
+			if(not(self.check_need_to_break())):
+				remaining_rotation = goal_rotation - self.get_current_position_for_rotation()
+				print("Remaining rotation = ", remaining_rotation)
+				self.Rotation(remaining_rotation)
+			else:
+				sleep(0.2)
 
 	def Freinage(self):
 		print("========== Freinage!!! =========")
