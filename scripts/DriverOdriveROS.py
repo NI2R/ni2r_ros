@@ -70,7 +70,9 @@ def main():
 		if(not(Moteurs.check_need_to_break())):
 			dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
 			print(dist)
-			Moteurs.Translation(dist)
+			Moteurs.Translation(dist)			
+			if(Moteurs.check_crash()): 
+				break
 		else:
 			sleep(0.2)
 	
@@ -91,7 +93,7 @@ def main():
 		Moteurs.Rotation(initial_angle)
 
 		print("========== MARCHE AVANT =========")
-		initial_dist = 100
+		initial_dist = -760
 		while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) > 10):
 			if(not(Moteurs.check_need_to_break())):
 				dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
@@ -106,7 +108,7 @@ def main():
 		sleep(2)	
 		
 		print("========== MARCHE ARRIERE =========")
-		initial_dist = -1500
+		initial_dist = -1400
 		while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) < -10):
 			if(not(Moteurs.check_need_to_break())):
 				dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)

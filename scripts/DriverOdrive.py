@@ -25,6 +25,8 @@ class Odrive:
 		self.consigne = 0
 		self.sharp_distance_detection = 500
 
+		
+
 	def Setup(self):
 		trap_traj_vel_max = 0.50  # Vitesse maximale consigne
 		trap_traj_accel = 5  # Rampe acceleration 10
@@ -94,11 +96,21 @@ class Odrive:
 	def check_need_to_break(self):
 		"""Anything that could trigger the break (sharp, ros)"""
 		result = False
-
 		result = result or self.robot.stop_timer
 		# result = result or self.sharp.isCollide(self.sharp_distance_detection) # 700: 150mm
 
 		return result
+
+	def check_crash(self):
+		"""This function detects when the robot crashes and return a boolean if yes """
+		result = False
+		print("Stall detection motor0 [A] : %f " ,self.motor0.motor.current_control.Iq_measured)
+		print("Stall detection motor1 [A] : %f " ,self.motor1.motor.current_control.Iq_measured)
+		result = result or (abs(self.motor0.motor.current_control.Iq_measured) > 9 and abs(self.motor1.motor.current_control.Iq_measured) > 9)
+		print("crash = %b ",result)
+
+		return result
+
 
 	def check_arrived(self):
 		"""Anything that could trigger the break (sharp, ros)"""
@@ -139,8 +151,8 @@ class Odrive:
 		print("========== Freinage!!! =========")
 		print("Avant freinage: ", self.motor0.encoder.pos_estimate)
 		print("Avant freinage: ", self.motor1.encoder.pos_estimate)
-		while(self.motor0.controller.input_pos != self.motor0.encoder.pos_estimate and self.motor1.controller.input_pos != self.motor1.encoder.pos_estimate):
-			self.motor0.controller.input_pos = self.motor0.encoder.pos_estimate
+		while(self.motor0.controller.input_pos!=self.motor0.encoder.pos_estimate and self.motor1.controller.input_pos!= self.motor1.encoder.pos_estimate):
+			self.motor0.controller.input_pos = self.motor0.encoder.pos_estimate 
 			self.motor1.controller.input_pos = self.motor1.encoder.pos_estimate
 		print("Apres freinage: ", self.motor0.encoder.pos_estimate)
 		print("Apres freinage: ", self.motor1.encoder.pos_estimate)
