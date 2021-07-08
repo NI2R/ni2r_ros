@@ -6,17 +6,21 @@ import rospy
 from time import sleep
 import DriverOdrive
 
-from std_msgs.msg import Float32, Bool
+from std_msgs.msg import Float32, Bool,  Int16
 
 class Robot_properties:
 	def __init__(self):
 		self.start = False
 		self.stop_timer = False
 		self.Initialisation = False
+		self.AduinoOrder = 0
 
 		rospy.Subscriber("StateTirette", Bool, self.UpdateStart)
 		rospy.Subscriber("stop_timer", Bool, self.UpdateStop)
 		rospy.Subscriber("StateClef", Bool, self.UpdateKey)
+
+		self.pub_arduino = '/arduinoOrder'
+		self.pub_arduino_topic = rospy.Publisher(self.pub_arduino, Int16, queue_size=1)
 
 	def UpdateStart(self, data):
 		self.start = data.data
@@ -26,6 +30,15 @@ class Robot_properties:
 
 	def UpdateKey(self, data):
 		self.Initialisation = data.data
+
+	def Publish_ArduinoOrder(self,order):
+		arduino_command = Int16()
+		arduino_command_raise_flag = order
+		arduino_command.data = arduino_command_raise_flag
+		self.pub_arduino_topic.publish(arduino_command)
+
+
+	
 
 def main():
 
@@ -55,7 +68,7 @@ def main():
 			sleep(0.2)
 
 	print("========== MARCHE ARRIERE =========")
-	initial_dist = -700
+	initial_dist = -1100
 	while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) < -10):
 		if(not(Moteurs.check_need_to_break())):
 			dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
@@ -68,9 +81,14 @@ def main():
 	initial_angle = -90
 	Moteurs.Rotation(initial_angle)
 
-	print("========== MARCHE AVANT =========")
-	initial_dist = 566
-	while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) > 10):
+
+	print("========== SORTIR LA CREMAILLERE =========")
+	robot.Publish_ArduinoOrder(9)
+	sleep(2)	
+	
+	print("========== MARCHE ARRIERE =========")
+	initial_dist = -1500
+	while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) < -10):
 		if(not(Moteurs.check_need_to_break())):
 			dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
 			print(dist)
@@ -78,6 +96,9 @@ def main():
 		else:
 			sleep(0.2)
 	
+	print("========== RENTRER LA CREMAILLERE =========")
+	robot.Publish_ArduinoOrder(10)
+	sleep(2)
 		
 
 	print("========== Fin de homologation 2021 =========")
