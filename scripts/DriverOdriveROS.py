@@ -45,7 +45,7 @@ def main():
 		# rospy.sleep(1)
 
 	print("========== TRANSLATION =========")
-	initial_dist = 510
+	initial_dist = 567
 	while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) > 10):
 		if(not(Moteurs.check_need_to_break())):
 			dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
@@ -53,6 +53,7 @@ def main():
 			Moteurs.Translation(dist)
 		else:
 			sleep(0.2)
+
 	print("========== Fin de homologation 2021 =========")
 
 if __name__ == '__main__':
