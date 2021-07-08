@@ -54,25 +54,25 @@ def main():
 		else:
 			sleep(0.2)
 
-	#print("========== MARCHE ARRIERE =========")
-	#initial_dist = -250
-	#while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) < -10):
-		#if(not(Moteurs.check_need_to_break())):
-			#dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
-			#print(dist)
-			#Moteurs.Translation(dist)
-		#else:
-			#sleep(0.2)
+	print("========== MARCHE ARRIERE =========")
+	initial_dist = -250
+	while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) < -10):
+		if(not(Moteurs.check_need_to_break())):
+			dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
+			print(dist)
+			Moteurs.Translation(dist)
+		else:
+			sleep(0.2)
 
-	#print("========== ROTATION =========")
-	#initial_angle = -90
-	#while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) < -10):
-		#if(not(Moteurs.check_need_to_break())):
-			#dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
-			#print(dist)
-	#Moteurs.Rotation(initial_angle)
-		#else:
-			#sleep(0.2)
+	print("========== ROTATION =========")
+	initial_angle = -90
+	while(initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate) < -10):
+		if(not(Moteurs.check_need_to_break())):
+			dist = initial_dist - Moteurs.Rounds_To_Length(Moteurs.motor1.encoder.pos_estimate)
+			print(dist)
+	Moteurs.Rotation(initial_angle)
+		else:
+			sleep(0.2)
 
 	print("========== Fin de homologation 2021 =========")
 
