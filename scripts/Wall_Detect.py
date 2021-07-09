@@ -3,7 +3,7 @@
 import rospy
 import math
 from time import sleep
-from std_msgs.msg import MultiArrayLayout, Int16
+from std_msgs.msg import Int16MultiArray, Int16
 
 ############## SETUP IN MM ##############
 #table dimensions
@@ -78,9 +78,12 @@ def orientation_from_wall(sensor_list):
         #return math.atan2((sensor_pair[1] - sensor_pair[0])/length)
         
 def publisher(coord):
-    tab = MultiArrayLayout()
-    tab.data = coord
-    pub = rospy.Publisher('Wall_Detect_topic', MultiArrayLayout, queue_size=1) #topicname + type of topic + nb in queue
+    tab = Int16MultiArray()
+    tab.data.append(coord[0])
+    tab.data.append(coord[1])
+    tab.data.append(coord[2])
+
+    pub = rospy.Publisher('Wall_Detect_topic', Int16MultiArray, queue_size=1) #topicname + type of topic + nb in queue
     pub.publish(tab) #Publication de l'objectif
     
 ############## MAIN ##############
