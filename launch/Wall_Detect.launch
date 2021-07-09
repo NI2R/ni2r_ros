@@ -1,0 +1,5 @@
+<!-- Run the nodes used for Wall_Detect -->
+<launch>
+  <include file="$(find arduinoProg)/launch/runMe.launch" />
+  <node name="bg" pkg="ni2r_ros" type="Wall_Detect.py" output="screen"/>
+</launch>

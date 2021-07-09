@@ -33,7 +33,7 @@ def main():
                 elif aruco.fiducial_array.fiducials[i].y0 > aruco.fiducial_array.fiducials[i].y2:
                     goNorth = False
     
-            print(goNorth)
+            #print(goNorth)
             aruco.publisher(goNorth) #Demande de publication du nouvel objectif
             sleep(1)
         
