@@ -18,7 +18,7 @@ Y_INIT_BOTTOM = 800
 L = 260
 l = 330
 
-AVG = 0, AVD = 0, ARG = 0, ARD = 0, GAV = 0, GAR = 0, DAV = 0, DAR = 0
+AVG, AVD, ARG, ARD, GAV, GAR, DAV, DAR = 0, 0, 0, 0, 0, 0, 0, 0
 
 ############## FONCTIONS ##############
 def getAVG(arg):
