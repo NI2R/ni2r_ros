@@ -126,7 +126,7 @@ def main():
         
     while not rospy.is_shutdown():
         dist_bottom = distance_from_wall(bottom_list)
-        dist_left = distance_from_wall(left_list)
+        dist_left = distance_from_wall(right_list)
         
         current_position = [dist_bottom,dist_left]
         print("Current position", current_position)
