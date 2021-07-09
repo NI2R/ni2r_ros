@@ -12,7 +12,7 @@ CATKIN_SRC_DIR := $(CURRENT_DIR)/..
 # MARK: - Arguments
 #
 
-MATCH_LAUNCHER := DriverOdrive.launch
+MATCH_LAUNCHER := Main.launch
 
 #
 # MARK: - Dependencies names
@@ -61,9 +61,9 @@ install_ros_dependencies:
 setup_dependencies:
 	@echo ""
 	@echo "🧬 Setup dependencies for ni2r_ros 📦"
-	@$(MAKE) clone_aruco_package
+	# @$(MAKE) clone_aruco_package
 	@$(MAKE) clone_rplidar_package
-	@$(MAKE) install_ros_dependencies
+	# @$(MAKE) install_ros_dependencies
 	@$(MAKE) compile_hard
 
 clone_aruco_package:
