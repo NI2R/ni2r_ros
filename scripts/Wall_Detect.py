@@ -18,6 +18,8 @@ Y_INIT_BOTTOM = 800
 L = 260
 l = 330
 
+AVG = 0, AVD = 0, ARG = 0, ARD = 0, GAV = 0, GAR = 0, DAV = 0, DAR = 0
+
 ############## FONCTIONS ##############
 def getAVG(arg):
     global AVG
@@ -71,7 +73,7 @@ def distance_from_wall(sensor_list):
 
 def orientation_from_wall(sensor_list):
     #if sensor_pair[0] > sensor_pair[1]:
-    return math.atan((sensor_list[0] - sensor_list[1])/sensor_list[2])
+    return math.atan((sensor_list[0] - sensor_list[1])/sensor_list[2]) *180/math.pi
     #else:
         #return math.atan2((sensor_pair[1] - sensor_pair[0])/length)
         
