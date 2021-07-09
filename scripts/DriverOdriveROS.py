@@ -79,7 +79,7 @@ def main():
 	print("========= MARCHE ARRIERE =========")
 	Moteurs.Translation_with_breaking(-1680)
 
-	Moteurs.enable_lidar = True
+	#Moteurs.enable_lidar = True  retirer pour la coupe polytech
 	print("========= ROTATION =========")
 	Moteurs.Rotation_with_breaking(-90)
 	
@@ -97,13 +97,71 @@ def main():
 		
 		print("========= RENTRER LA CREMAILLERE =========")
 		robot.Publish_ArduinoOrder(10)
-		sleep(2)
-	
+		sleep(2)	
+
 		print("========= ROTATION =========")
 		Moteurs.Rotation_with_breaking(45)
 
 		print("========= MARCHE AVANT =========")
-		Moteurs.Translation_with_breaking(850)
+		Moteurs.Translation_with_breaking(425) # 850
+
+		print("========= ROTATION =========")
+		Moteurs.Rotation_with_breaking(-45)
+
+		print("========= MARCHE AVANT =========")
+		Moteurs.Translation_with_breaking(500)
+
+		print("========= DIODE  =========")
+		robot.Publish_ArduinoOrder(4)
+		sleep(2)
+
+		print("========= MARCHE ARRIERE =========")
+		Moteurs.Translation_with_breaking(-50)
+
+		print("========= PHOTO PLACEMENT =========")
+		robot.Publish_ArduinoOrder(5)
+		sleep(0.5)
+
+		print("========= ASPIRATION =========")
+		robot.Publish_ArduinoOrder(6)
+		sleep(0.5)
+
+		print("========= MARCHE AVANT =========")
+		Moteurs.Translation_with_breaking(50)
+
+		print("========= LEVER =========")
+		robot.Publish_ArduinoOrder(8)
+		sleep(1)
+
+		print("========= LEVER 2 =========")
+		robot.Publish_ArduinoOrder(8)
+		sleep(1)
+
+		print("========= MARCHE ARRIERE =========")
+		Moteurs.Translation_with_breaking(-100)
+
+		print("========= MID =========")
+		robot.Publish_ArduinoOrder(3)
+		sleep(1)
+
+		print("========= ROTATION =========")
+		Moteurs.Rotation_with_breaking(90)
+
+		print("========= MARCHE AVANT =========")
+		Moteurs.Translation_with_breaking(370)
+
+		print("========= DROP =========")
+		robot.Publish_ArduinoOrder(11)
+		sleep(1)
+
+		print("========= RELAESE ALL =========")
+		robot.Publish_ArduinoOrder(14)
+		sleep(0.5)
+
+		print("========= RELAESE ALL =========")
+		robot.Publish_ArduinoOrder(14)
+		sleep(0.5)
+
 
 	else:
 		# COTE JAUNE

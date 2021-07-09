@@ -36,7 +36,7 @@ class Robot_properties:
 		for scan in self.scans:
 			if scan < self.obstacle_range:
 				too_close = True
-				print("[Lidar] Obstacle detected")
+				#print("[Lidar] Obstacle detected")
 				break
 		result.data = too_close
 		self.pub_stop_lidar_topic.publish(result)

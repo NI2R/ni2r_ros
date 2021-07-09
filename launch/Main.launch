@@ -8,6 +8,19 @@ Copyright (c) 2020, NI2R.
    <include file="$(find ni2r_ros)/launch/_RPLidar.launch" >
    </include>
 
+
+   <include file="$(find video_stream_opencv)/launch/camera.launch" >
+   		<!-- node name and ros graph name -->
+	  	<arg name="camera_name" value="CamGoblet" />
+	  	<!-- means video device 0, /dev/video0 -->
+	  	<arg name="video_stream_provider" value="1" />
+	  	<!-- set camera fps to (if the device allows) -->
+		<arg name="width" value="1280" />
+		<arg name="height" value="720" />
+   </include>
+
+	<node name="interfaceROSGoblet" pkg="vision_goblet" type="interfaceROS.py" output="screen" />
+
 	<node name="Odrive" pkg="ni2r_ros" type="DriverOdriveROS.py" output="screen" />
 	<node name="Main" pkg="ni2r_ros" type="MainROS.py" output="screen" />
 	<!--<node name="serialNode" pkg="rosserial_python" type="serial_node.py" output="screen" />-->
