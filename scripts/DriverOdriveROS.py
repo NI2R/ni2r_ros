@@ -13,13 +13,13 @@ class Robot_properties:
 		self.start = False
 		self.stop_timer = False
 		self.Initialisation = False
-		self.cote = 0		
+		self.cote = 0
 		self.AduinoOrder = 0
 
 		rospy.Subscriber("StateTirette", Bool, self.UpdateStart)
 		rospy.Subscriber("stop_timer", Bool, self.UpdateStop)
 		rospy.Subscriber("StateClef", Bool, self.UpdateKey)
-		rospy.Subscriber("StateCote", Bool, self.UpdateCote)
+		#rospy.Subscriber("StateCote", Bool, self.UpdateCote)
 
 		self.pub_arduino = '/arduinoOrder'
 		self.pub_arduino_topic = rospy.Publisher(self.pub_arduino, Int16, queue_size=1)
@@ -48,45 +48,79 @@ def main():
 	robot = Robot_properties()
 
 	"""Mode match = standby"""
-	while not(robot.Initialisation): 
-		sleep(0.1)
-
+	#while not(robot.Initialisation): 
+		#sleep(0.1)
 	odrv0 = DriverOdrive.odrive.find_any()
 	Moteurs = DriverOdrive.Odrive(robot, odrv0)
-	print("========== Start homologation 2021 =========")
+	print("========= Start Match =========")
 	Moteurs.Setup()
+	
+	if robot.cote:
+		print("**** COTE JAUNE ****")
+	elif not(robot.cote):
+		print("**** COTE BLEU ****")
+	else :
+		print("COTE EXCEPTION")
+
 
 	while(not(robot.start)):
 		sleep(0.1)
 		# rospy.sleep(1)
 
-	print("========== MARCHE AVANT =========")
+	print("========= MARCHE AVANT =========")
 	Moteurs.Translation_with_breaking(566)
+
+	print("========= MARCHE ARRIERE =========")
+	Moteurs.Translation_with_breaking(-1680)
+
+	print("========= ROTATION =========")
+	Moteurs.Rotation_with_breaking(-90)
 	
-	if not(robot.cote):
+	if not(robot.cote): 
+		# COTE BLEU (0 = entre dans la boucle)
+		print("========= MARCHE AVANT =========")
+		Moteurs.Translation_with_breaking(120)
 
-		print("========== MARCHE ARRIERE =========")
-		Moteurs.Translation_with_breaking(-1100)
-
-		print("========== ROTATION =========")
-		Moteurs.Rotation_with_breaking(-90)
-
-		print("========== MARCHE AVANT =========")
-		Moteurs.Translation_with_breaking(-760)
-
-		print("========== SORTIR LA CREMAILLERE =========")
+		print("========= SORTIR LA CREMAILLERE =========")
 		robot.Publish_ArduinoOrder(9)
 		sleep(2)	
 		
-		print("========== MARCHE ARRIERE =========")
-		Moteurs.Translation_with_breaking(-1400)
+		print("========= MARCHE ARRIERE =========")
+		Moteurs.Translation_with_breaking(-620)
 		
-		print("========== RENTRER LA CREMAILLERE =========")
+		print("========= RENTRER LA CREMAILLERE =========")
 		robot.Publish_ArduinoOrder(10)
 		sleep(2)
-			
+	
+		print("========= ROTATION =========")
+		Moteurs.Rotation_with_breaking(45)
 
-	print("========== Fin de homologation 2021 =========")
+		print("========= MARCHE AVANT =========")
+		Moteurs.Translation_with_breaking(850)
+
+	else:
+		# COTE JAUNE
+		print("========= MARCHE ARRIERE =========*****")
+		Moteurs.Translation_with_breaking(-120)
+
+		print("========= SORTIR LA CREMAILLERE =========")
+		robot.Publish_ArduinoOrder(9)
+		sleep(2)	
+
+		print("========= MARCHE AVANT =========*****")
+		Moteurs.Translation_with_breaking(620)
+
+		print("========= RENTRER LA CREMAILLERE =========")
+		robot.Publish_ArduinoOrder(10)
+		sleep(2)
+
+		print("========= ROTATION =========")
+		Moteurs.Rotation_with_breaking(-45)
+
+		print("========= MARCHE ARRIERE =========")
+		Moteurs.Translation_with_breaking(-850)	
+
+	print("========= Fin de Match =========")
 
 if __name__ == '__main__':
 	try:
