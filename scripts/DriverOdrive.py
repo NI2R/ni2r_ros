@@ -107,10 +107,10 @@ class Odrive:
 	def check_crash(self):
 		"""This function detects when the robot crashes and return a boolean if yes """
 		result = False
-		print("Stall detection motor0 [A] : %f " ,self.motor0.motor.current_control.Iq_measured)
-		print("Stall detection motor1 [A] : %f " ,self.motor1.motor.current_control.Iq_measured)
+		#print("Stall detection motor0 [A] : %f " ,self.motor0.motor.current_control.Iq_measured)
+		#print("Stall detection motor1 [A] : %f " ,self.motor1.motor.current_control.Iq_measured)
 		result = result or (abs(self.motor0.motor.current_control.Iq_measured) > 9 and abs(self.motor1.motor.current_control.Iq_measured) > 9)
-		print("crash = %b ",result)
+		#print("crash = %b ",result)
 
 		return result
 

@@ -66,20 +66,20 @@ def main():
 	if not(robot.cote):
 
 		print("========== MARCHE ARRIERE =========")
-		Moteurs.Translation_with_breaking(-1100)
+		Moteurs.Translation_with_breaking(-1700)
 
 		print("========== ROTATION =========")
 		Moteurs.Rotation_with_breaking(-90)
 
 		print("========== MARCHE AVANT =========")
-		Moteurs.Translation_with_breaking(-760)
+		Moteurs.Translation_with_breaking(100)
 
 		print("========== SORTIR LA CREMAILLERE =========")
 		robot.Publish_ArduinoOrder(9)
 		sleep(2)	
 		
 		print("========== MARCHE ARRIERE =========")
-		Moteurs.Translation_with_breaking(-1400)
+		Moteurs.Translation_with_breaking(-500)
 		
 		print("========== RENTRER LA CREMAILLERE =========")
 		robot.Publish_ArduinoOrder(10)
