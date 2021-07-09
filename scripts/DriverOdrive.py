@@ -107,10 +107,10 @@ class Odrive:
 	def check_crash(self):
 		"""This function detects when the robot crashes and return a boolean if yes """
 		result = False
-		print("Stall detection motor0 [A] : %f " ,self.motor0.motor.current_control.Iq_measured)
-		print("Stall detection motor1 [A] : %f " ,self.motor1.motor.current_control.Iq_measured)
+		#print("Stall detection motor0 [A] : %f " ,self.motor0.motor.current_control.Iq_measured)
+		#print("Stall detection motor1 [A] : %f " ,self.motor1.motor.current_control.Iq_measured)
 		result = result or (abs(self.motor0.motor.current_control.Iq_measured) > 9 and abs(self.motor1.motor.current_control.Iq_measured) > 9)
-		print("crash = %b ",result)
+		#print("crash = %b ",result)
 
 		return result
 
@@ -151,8 +151,11 @@ class Odrive:
 				remaining_translation = goal_translation - self.get_current_position_for_translation()
 				print("Remaining translation = ", remaining_translation)
 				self.Translation(remaining_translation)
-				if(self.check_crash()): 
-					break
+				sleep(0.2) #chlag mais gg
+				if(self.check_crash()):
+					remaining_translation = 0
+					goal_translation = self.get_current_position_for_translation()
+					self.Translation(0)
 			else:
 				sleep(0.2)
 
@@ -170,7 +173,7 @@ class Odrive:
 	def Rotation_with_breaking(self, angular_goal):
 		goal_rotation = angular_goal + self.get_current_position_for_rotation() # angular goal + initial current position
 
-		while(abs(goal_rotation - self.get_current_position_for_rotation()) > 10):
+		while(abs(goal_rotation - self.get_current_position_for_rotation()) > 2):
 			if(not(self.check_need_to_break())):
 				remaining_rotation = goal_rotation - self.get_current_position_for_rotation()
 				print("Remaining rotation = ", remaining_rotation)
