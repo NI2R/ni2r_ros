@@ -130,7 +130,7 @@ def main():
         
         current_position = [dist_bottom,dist_left]
         print("Current position", current_position)
-        
+         
         alpha = orientation_from_wall(bottom_list)
         print("Current orientation", alpha)
         
