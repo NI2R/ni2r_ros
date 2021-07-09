@@ -24,6 +24,7 @@ class Odrive:
 		self.entre_axe = 275.0 #mm
 		self.consigne = 0
 		self.sharp_distance_detection = 500
+		self.enable_lidar = False
 
 	def Setup(self):
 		trap_traj_vel_max = 0.50  # Vitesse maximale consigne
@@ -100,6 +101,8 @@ class Odrive:
 		"""Anything that could trigger the break (sharp, ros)"""
 		result = False
 		result = result or self.robot.stop_timer
+		if(self.enable_lidar):
+			result = result or self.robot.stop_lidar
 		# result = result or self.sharp.isCollide(self.sharp_distance_detection) # 700: 150mm
 
 		return result

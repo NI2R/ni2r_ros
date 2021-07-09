@@ -2,8 +2,10 @@
 Copyright (c) 2020, NI2R.
 -->
 <launch>
-<!-- launch test goblet -->
    <include file="$(find arduinoProg)/launch/runMe.launch" >
+   </include>
+
+   <include file="$(find ni2r_ros)/launch/_RPLidar.launch" >
    </include>
 
 	<node name="Odrive" pkg="ni2r_ros" type="DriverOdriveROS.py" output="screen" />

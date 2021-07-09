@@ -12,12 +12,14 @@ class Robot_properties:
 	def __init__(self):
 		self.start = False
 		self.stop_timer = False
+		self.stop_lidar = False
 		self.Initialisation = False
 		self.cote = 0
 		self.AduinoOrder = 0
 
 		rospy.Subscriber("StateTirette", Bool, self.UpdateStart)
 		rospy.Subscriber("stop_timer", Bool, self.UpdateStop)
+		rospy.Subscriber("stop_lidar", Bool, self.UpdateStopLidar)
 		rospy.Subscriber("StateClef", Bool, self.UpdateKey)
 		#rospy.Subscriber("StateCote", Bool, self.UpdateCote)
 
@@ -29,6 +31,9 @@ class Robot_properties:
 
 	def UpdateStop(self, data):
 		self.stop_timer = data.data
+
+	def UpdateStopLidar(self, data):
+		self.stop_lidar = data.data
 
 	def UpdateKey(self, data):
 		self.Initialisation = data.data
@@ -67,12 +72,14 @@ def main():
 		sleep(0.1)
 		# rospy.sleep(1)
 
+	Moteurs.enable_lidar = False
 	print("========= MARCHE AVANT =========")
 	Moteurs.Translation_with_breaking(566)
 
 	print("========= MARCHE ARRIERE =========")
 	Moteurs.Translation_with_breaking(-1680)
 
+	Moteurs.enable_lidar = True
 	print("========= ROTATION =========")
 	Moteurs.Rotation_with_breaking(-90)
 	
