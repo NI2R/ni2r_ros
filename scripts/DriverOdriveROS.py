@@ -153,25 +153,70 @@ def main():
 
 	else:
 		# COTE JAUNE
-		print("========= MARCHE ARRIERE =========*****")
+		print("========= PART2: 3/6.MARCHE ARRIERE =========*****")
 		Moteurs.Translation_with_breaking(-120)
 
-		print("========= SORTIR LA CREMAILLERE =========")
+		print("========= PART2: 4/6.SORTIR LA CREMAILLERE =========")
 		robot.Publish_ArduinoOrder(9)
 		sleep(2)	
 
-		print("========= MARCHE AVANT =========*****")
+		print("========= PART2: 5/6.MARCHE AVANT =========*****")
 		Moteurs.Translation_with_breaking(620)
 
-		print("========= RENTRER LA CREMAILLERE =========")
+		print("========= PART2: 6/6.RENTRER LA CREMAILLERE =========")
 		robot.Publish_ArduinoOrder(10)
 		sleep(2)
 
-		print("========= ROTATION =========")
+		print("========= PART3: 1/10.ROTATION =========")
 		Moteurs.Rotation_with_breaking(-45)
 
-		print("========= MARCHE ARRIERE =========")
-		Moteurs.Translation_with_breaking(-850)	
+		print("========= PART3: 2/10.MARCHE ARRIERE =========")
+		Moteurs.Translation_with_breaking(-425)	
+
+		print("========= PART3: 3/10.ROTATION =========")
+		Moteurs.Rotation_with_breaking(-135)
+
+		print("========= PART3: 4/10.MARCHE AVANT =========")
+		Moteurs.Translation_with_breaking(500)
+
+		print("========= PART3: 5/10.DIODE  =========")
+		robot.Publish_ArduinoOrder(4)
+		sleep(2)
+
+		print("========= PART3: 6/10.MARCHE ARRIERE =========")
+		Moteurs.Translation_with_breaking(-50)
+
+		print("========= PART3: 7/10.PHOTO PLACEMENT =========")
+		robot.Publish_ArduinoOrder(5)
+		sleep(0.5)
+
+		print("========= PART3: 8/10.ASPIRATION =========")
+		robot.Publish_ArduinoOrder(6)
+		sleep(0.5)
+
+		print("========= PART3: 9/10.MARCHE AVANT =========")
+		Moteurs.Translation_with_breaking(50)
+
+		print("========= PART3: 10/10.LEVER =========")
+		robot.Publish_ArduinoOrder(3)
+		sleep(1)
+
+		print("========= PART4: 1/5.MARCHE ARRIERE =========")
+		Moteurs.Translation_with_breaking(-100)
+
+		print("========= PART4: 2/5.ROTATION =========")
+		Moteurs.Rotation_with_breaking(-90)
+
+		print("========= PART4: 3/5.MARCHE AVANT =========")
+		Moteurs.Translation_with_breaking(370)
+
+		print("========= PART4: 4/5.DROP =========")
+		robot.Publish_ArduinoOrder(11)
+		sleep(2)
+
+		print("========= PART4: 5/5.RELEASE ALL =========")
+		robot.Publish_ArduinoOrder(14)
+		sleep(0.5)
 
 	print("========= Fin de Match =========")
 
