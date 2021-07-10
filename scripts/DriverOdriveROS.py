@@ -97,13 +97,13 @@ def main():
 		
 		print("========= RENTRER LA CREMAILLERE =========")
 		robot.Publish_ArduinoOrder(10)
-		sleep(2)	
+		sleep(2)
 
 		print("========= ROTATION =========")
 		Moteurs.Rotation_with_breaking(45)
 
 		print("========= MARCHE AVANT =========")
-		Moteurs.Translation_with_breaking(425) # 850
+		Moteurs.Translation_with_breaking(425)
 
 		print("========= ROTATION =========")
 		Moteurs.Rotation_with_breaking(-45)
@@ -161,7 +161,6 @@ def main():
 		print("========= RELAESE ALL =========")
 		robot.Publish_ArduinoOrder(14)
 		sleep(0.5)
-
 
 	else:
 		# COTE JAUNE
