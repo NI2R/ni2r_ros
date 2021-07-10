@@ -27,7 +27,7 @@ class Odrive:
 		self.enable_lidar = False
 
 	def Setup(self):
-		trap_traj_vel_max = 0.50  # Vitesse maximale consigne
+		trap_traj_vel_max = 0.40  # Vitesse maximale consigne # Reduit pour goblets
 		trap_traj_accel = 5  # Rampe acceleration 10
 		trap_traj_decel = 5  # Rampe deceleration 10
 		trap_traj_inertia = 0  # A determiner
